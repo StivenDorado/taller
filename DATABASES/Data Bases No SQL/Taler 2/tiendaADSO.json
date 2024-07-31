@@ -1,0 +1,186 @@
+db.createCollection("Pedidos", {
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      required: [
+        "codigo",
+        "cliente",
+        "direccionCliente",
+        "fechaPedido",
+        "fechaEntrega",
+        "telefonoCliente",
+        "correoCliente",
+        "cantidadProductos",
+        "estadoPedido",
+        "observacionesEntrega"
+      ],
+      properties: {
+        codigo: {
+          bsonType: "int",
+          description: "El código del pedido debe ser un número entero."
+        },
+        cliente: {
+          bsonType: "string",
+          description: "Debe ser el nombre completo del cliente en forma de texto."
+        },
+        direccionCliente: {
+          bsonType: "string",
+          description: "La dirección del cliente en formato de texto."
+        },
+        fechaPedido: {
+          bsonType: "date",
+          description: "La fecha en que se realizó el pedido."
+        },
+        fechaEntrega: {
+          bsonType: "date",
+          description: "La fecha en que se espera entregar el pedido."
+        },
+        telefonoCliente: {
+          bsonType: "string",
+          description: "El número de teléfono del cliente debe tener entre 7 y 12 caracteres.",
+          minLength: 7,
+          maxLength: 12
+        },
+        correoCliente: {
+          bsonType: "string",
+          description: "Debe ser una dirección de correo válida.",
+          pattern: "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$"
+        },
+        FormaEnvio: {
+          bsonType: "string",
+          description: "La forma de envío puede ser Aérea, Marítima o Terrestre.",
+          enum: ["Aérea", "Marítima", "Terrestre"]
+        },
+        cantidadProductos: {
+          bsonType: "int",
+          description: "Debe ser un número entero y al menos 1.",
+          minimum: 1
+        },
+        estadoPedido: {
+          bsonType: "string",
+          description: "El estado del pedido puede ser Enviado, Entregado o NoEntregado.",
+          enum: ["Enviado", "Entregado", "NoEntregado"]
+        },
+        observacionesEntrega: {
+          bsonType: "string",
+          description: "Cualquier observación relacionada con la entrega."
+        }
+      }
+    }
+  }
+});
+
+ejemplo de uso
+db.Pedidos.insertOne({
+  codigo: 1,
+  cliente: "Diana Martínez",
+  direccionCliente: "Calle Falsa 123",
+  fechaPedido: new Date("2024-07-26"),
+  fechaEntrega: new Date("2024-08-02"),
+  telefonoCliente: "1234567",
+  correoCliente: "diana.martinez@ej.com",
+  FormaEnvio: "Aérea",
+  cantidadProductos: 10,
+  estadoPedido: "Enviado",
+  observacionesEntrega: "Entregar en horario laboral."
+});
+
+
+1
+db.Pedidos.insertOne({})
+
+2
+db.Pedidos.insertOne({
+  codigo: "Abejas",
+  cliente: "Diana Martínez",
+  direccionCliente: "Carrera 45 #32-16",
+  fechaPedido: new Date("2024-07-26"),
+  fechaEntrega: new Date("2024-08-02"),
+  telefonoCliente: "6543210",
+  correoCliente: "diana.martinez@ej.com",
+  FormaEnvio: "Terrestre",
+  cantidadProductos: 8,
+  estadoPedido: "Enviado",
+  observacionesEntrega: "Entregar en la tarde."
+});
+
+3
+db.Pedidos.insertOne({
+  codigo: 1,
+  cliente: "Diana Martínez",
+  direccionCliente: "Calle Falsa 123",
+  fechaPedido: new Date("2024-07-26"),
+  fechaEntrega: new Date("2024-08-02"),
+  telefonoCliente: "1234567",
+  correoCliente: "diana.martinez@ej.com",
+  FormaEnvio: "Aérea",
+  cantidadProductos: 10,
+  observacionesEntrega: "Entregar en horario laboral."
+});
+
+4
+db.Pedidos.insertOne({
+  codigo: 1,
+  cliente: "Diana Martínez",
+  direccionCliente: "Calle Falsa 123",
+  fechaPedido: new Date("2024-07-26"),
+  fechaEntrega: new Date("2024-08-02"),
+  telefonoCliente: "1234567",
+  correoCliente: "diana.martinez@ej.com",
+  FormaEnvio: "Carretera",
+  cantidadProductos: 10,
+  estadoPedido: "Enviado",
+  observacionesEntrega: "Entregar en horario laboral."
+});
+
+5
+db.Pedidos.insertOne({
+  codigo: 1,
+  cliente: "Diana Martínez",
+  direccionCliente: "Calle Falsa 123",
+  fechaPedido: "2024-07-27",
+  fechaEntrega: new Date("2024-08-02"),
+  telefonoCliente: "1234567",
+  correoCliente: "diana.martinez@ej.com",
+  FormaEnvio: "Aérea",
+  cantidadProductos: 10,
+  estadoPedido: "Enviado",
+  observacionesEntrega: "Entregar en horario laboral."
+});
+
+5.
+db.Pedidos.insertOne({
+  codigo: 1,
+  cliente: "Diana Martínez",
+  direccionCliente: "Calle Falsa 123",
+  fechaPedido: new Date("2024-07-277"),
+  fechaEntrega: new Date("2024-08-027"),
+  telefonoCliente: "1234567",
+  correoCliente: "diana.martinez@ej.com",
+  FormaEnvio: "Aérea",
+  cantidadProductos: 10,
+  estadoPedido: "Enviado",
+  observacionesEntrega: "Entregar en horario laboral."
+});
+
+db.Pedidos.insertOne({
+  codigo: 1,
+  cliente: "Tatiana Dorado",
+  direccionCliente: "Carrera Falsa 123",
+  fechaPedido: new Date("2024-02-26"),
+  fechaEntrega: new Date("2024-03-31"),
+  telefonoCliente: "1234567",
+  correoCliente: "tatiana.dorado@ej.com",
+  FormaEnvio: "Aérea",
+  cantidadProductos: 9,
+  estadoPedido: "Enviado",
+  observacionesEntrega: "Entregar en horario laboral."
+});
+
+
+
+Ejecutar el comando que permite ver las reglas de validación de las colecciones 
+creadas.
+
+db.getCollectionInfos({ name: "Alumnos" })
+db.getCollectionInfos({ name: "Pedidos" })

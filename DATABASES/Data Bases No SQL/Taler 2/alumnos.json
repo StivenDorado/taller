@@ -1,0 +1,122 @@
+db.createCollection("ALUMNOS", {
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      required: ["identificacion", "nombres", "apellidos", "correo", "fechaNacimiento", "Sexo", "Estrato"],
+      properties: {
+        identificacion: {
+          bsonType: "string",
+          description: "El campo 'identificacion' debe ser una cadena de texto con una longitud mínima de 5 y máxima de 15 caracteres.",
+          minLength: 5,
+          maxLength: 15
+        },
+        nombres: {
+          bsonType: "string",
+          description: "El campo 'nombres' debe ser una cadena de texto."
+        },
+        apellidos: {
+          bsonType: "string",
+          description: "El campo 'apellidos' debe ser una cadena de texto."
+        },
+        correo: {
+          bsonType: "string",
+          description: "El campo 'correo' debe contener una dirección de correo válida.",
+          pattern: "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$"
+        },
+        fechaNacimiento: {
+          bsonType: "date",
+          description: "El campo 'fechaNacimiento' debe ser una fecha válida."
+        },
+        Sexo: {
+          bsonType: "string",
+          description: "El campo 'Sexo' debe ser uno de los siguientes valores: Femenino, Masculino, No Binario.",
+          enum: ["Femenino", "Masculino", "No Binario"]
+        },
+        Estrato: {
+          bsonType: "int",
+          description: "El campo 'Estrato' debe ser un número entero entre 1 y 6.",
+          minimum: 1,
+          maximum: 6
+        }
+      }
+    }
+  }
+});
+
+ejemplo de uso
+db.Alumnos.insertOne({
+  identificacion: "123456789",
+  nombres: "Juan",
+  apellidos: "Pérez",
+  correo: "juan.perez@example.com",
+  fechaNacimiento: new Date("2000-01-01"),
+  Sexo: "Binario",
+  Estrato: 1
+});
+
+1
+db.Alumnos.insertOne({})
+
+
+2
+db.Alumnos.insertOne({
+  identificacion: "1234567890123456",
+  nombres: "Juan",
+  apellidos: "Pérez",
+  correo: "juan.perez@example.com",
+  fechaNacimiento: new Date("2000-01-01"),
+  Sexo: "Masculino",
+  Estrato: 3
+});
+
+3
+db.Alumnos.insertOne({
+  identificacion: "1234567890",
+  nombres: "Juan",
+  apellidos: "Pérez",
+  correo: "juan.perez@example.com",
+  fechaNacimiento: new Date("2000-01-01"),
+  Sexo: "Masculino",
+});
+
+4
+db.Alumnos.insertOne({
+  identificacion: "123456789",
+  nombres: "Juan",
+  apellidos: "Pérez",
+  correo: "juan.perez@example.com",
+  fechaNacimiento: new Date("2000-01-01"),
+  Sexo: "Masculino",
+  Estrato: 7
+});
+
+5
+db.Alumnos.insertOne({
+  identificacion: "123456789",
+  nombres: "Juan",
+  apellidos: "Pérez",
+  correo: "juan.perez@example.com",
+  fechaNacimiento: new Date("2000-01-01"),
+  Sexo: "Binario",
+  Estrato: 1
+});
+
+6
+db.Alumnos.insertOne({
+  identificacion: "123456789",
+  nombres: "Juan",
+  apellidos: "Pérez",
+  correo: "juan.perez@example.com",
+  fechaNacimiento: new Date("2000-01-01"),
+  Sexo: "Masculino",
+  Estrato: 1
+});
+db.Alumnos.insertOne({
+  identificacion: "456789",
+  nombres: "Julian",
+  apellidos: "Lopez",
+  correo: "julian.lopez@example.com",
+  fechaNacimiento: new Date("2010-03-26"),
+  Sexo: "Masculino",
+  Estrato: 4
+});
